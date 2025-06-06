@@ -1,0 +1,128 @@
+---
+title: "GDP per capita correlations"
+format:
+  revealjs:
+    slide-level: 3 # H3 headings become slides
+    theme: solarized # Choose a theme
+    transition: fade # Choose a transition effect
+---
+
+### Introduction
+The goal of this project is to examine the correlation between GDP per capita and three different variables: adult literacy rates, life expectancy, and measles immunisation rate. First I will run the correlation analysis for each variable. The data comes from the World Bank’s World Development Indicators [@worldbank2022]. Code is created with the help of GitCopilot [@copilot].
+
+### Correlation
+```{r echo=FALSE}
+setwd("/Users/Lisa/Desktop/QTM/assignment5")
+library(readr)
+library(ggplot2)
+library(dplyr)
+
+wdi <- read_csv("wdi.csv")
+
+# Filter for rows with both gdp_per_capita and adult_literacy_rate
+wdi_filtered <- subset(wdi, !is.na(gdp_per_capita) & !is.na(adult_literacy_rate))
+
+# GDP and Adult Literacy Correlation
+cor_literacy <- cor.test(
+  wdi$gdp_per_capita, wdi$adult_literacy_rate,
+  use = "complete.obs", method = "pearson"
+)
+
+# Filter for rows with both gdp_per_capita and Life Expectancy
+wdi_filtered <- subset(wdi, !is.na(gdp_per_capita) & !is.na(life_expectancy))
+
+# GDP and Life Expectancy
+cor_life <- cor.test(
+  wdi$gdp_per_capita, wdi$life_expectancy,
+  use = "complete.obs", method = "pearson"
+)
+
+# Remove rows with missing GDP per capita or measles immunisation rate data
+wdi_filtered <- subset(wdi, !is.na(gdp_per_capita) & !is.na(measles_immunisation_rate))
+
+# GDP and Measles Immunisation Rate
+cor_immunisation <- cor.test(
+  wdi$gdp_per_capita, wdi$measles_immunisation_rate,
+  use = "complete.obs", method = "pearson"
+)
+
+# Create summary table
+cor_table <- data.frame(
+  Comparison = c(
+    "GDP per Capita vs. Adult Literacy Rate",
+    "GDP per Capita vs. Life Expectancy",
+    "GDP per Capita vs. Measles Immunisation Rate"
+  ),
+  Correlation = c(
+    round(cor_literacy$estimate, 3),
+    round(cor_life$estimate, 3),
+    round(cor_immunisation$estimate, 3)
+  ),
+  P_Value = c(
+    signif(cor_literacy$p.value, 3),
+    signif(cor_life$p.value, 3),
+    signif(cor_immunisation$p.value, 3)
+  )
+)
+
+# Display the table
+knitr::kable(cor_table, caption = "Summary of Correlation Analyses")
+```
+
+### Figure 1
+```{r echo=FALSE, fig.cap="Scatter plot of GDP per Capita vs. Life Expectancy"}
+# Create the scatter plot
+ggplot(wdi_filtered, aes(x = gdp_per_capita, y = life_expectancy)) +
+    geom_point(alpha = 0.7) +
+    labs(
+        title = "GDP per Capita vs. Life Expectancy (2022)",
+        x = "GDP per Capita (USD)",
+        y = "Life Expectancy (Years)"
+    ) +
+    theme_minimal()
+```
+
+### Figure 2
+```{r echo=FALSE, fig.cap="Scatter plot of GDP per Capita vs. Adult Literacy Rate"}
+# Create the scatter plot
+ggplot(wdi_filtered, aes(x = gdp_per_capita, y = adult_literacy_rate)) +
+    geom_point(alpha = 0.7) +
+    labs(
+        title = "GDP per Capita vs. Adult Literacy Rate (2022)",
+        x = "GDP per Capita (USD)",
+        y = "Adult Literacy Rate (%)"
+    ) +
+    theme_minimal()
+```
+
+### Figure 3
+```{r echo=FALSE, fig.cap="Bar plot of GDP per Capita and Measles Immunisation Rate"}
+# Create GDP per capita groups
+wdi_filtered <- wdi_filtered %>%
+  mutate(gdp_group = factor(
+    case_when(
+      gdp_per_capita < 5000 ~ "Low",
+      gdp_per_capita < 20000 ~ "Medium",
+      TRUE ~ "High"
+    ),
+    levels = c("Low", "Medium", "High")
+  ))
+
+# Calculate average measles immunisation rate for each GDP group
+avg_immunisation <- wdi_filtered %>%
+  group_by(gdp_group) %>%
+  summarise(mean_immunisation = mean(measles_immunisation_rate, na.rm = TRUE))
+
+# Create the bar chart
+ggplot(avg_immunisation, aes(x = gdp_group, y = mean_immunisation)) +
+  geom_bar(stat = "identity", fill = "skyblue") +
+  labs(
+    title = "Average Measles Immunisation Rate by GDP per Capita Group",
+    x = "GDP per Capita Group",
+    y = "Average Measles Immunisation Rate (%)"
+  ) +
+  theme_minimal()
+```
+
+### Interpretation
+All three variables are positively correlated with GDP. Of all the variables, life expectancy has the strongest and most significant correlation with GDP (Figure 1). Adult literacy has the least significant, but second strongest correlation (Figure 2). Measles immunisation rate has the weakest correlation with GDP (Figure 3).
