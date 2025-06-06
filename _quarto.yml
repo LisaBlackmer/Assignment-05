@@ -5,7 +5,7 @@ bibliography: references.bib
 
 project:
   type: website
-  output-dir: doc
+  output-dir: docs
 
 website:
   title: "Assignment 05 - Literate Programming with Quarto"
