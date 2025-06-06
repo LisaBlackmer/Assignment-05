@@ -1,0 +1,14 @@
+---
+title: "Assignment 05 - Literate Programming with Quarto"
+---
+
+This website presents a brief analysis of data from the World Development Indicators dataset (https://databank.worldbank.org/source/world-development-indicators). 
+
+The analysis includes how GDP impacts:
+- Adult literacy rates
+- Measles immunisation rates
+- Life expectancy
+
+Use the navigation bar above to explore the different analyses.
+
+
