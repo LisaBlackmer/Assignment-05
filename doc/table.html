@@ -57,7 +57,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -182,7 +202,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>The goal of this project is to examine the correlation between GDP per capita and three different variables: adult literacy rates, life expectancy, and measles immunisation rate. First I will run the correlation analysis for each variable. The data comes from the World Bank’s World Development Indicators <span class="citation" data-cites="worldbank2022">(<a href="#ref-worldbank2022" role="doc-biblioref"><strong>worldbank2022?</strong></a>)</span>. Code is created with the help of GitCopilot <span class="citation" data-cites="copilot">(<a href="#ref-copilot" role="doc-biblioref"><strong>copilot?</strong></a>)</span>.</p>
+<p>The goal of this project is to examine the correlation between GDP per capita and three different variables: adult literacy rates, life expectancy, and measles immunisation rate. First I will run the correlation analysis for each variable. The data comes from the World Bank’s World Development Indicators <span class="citation" data-cites="worldbank2022">(<a href="#ref-worldbank2022" role="doc-biblioref">Bank 2022</a>)</span>. Code is created with the help of GitCopilot <span class="citation" data-cites="copilot">(<a href="#ref-copilot" role="doc-biblioref">GitHub 2023</a>)</span>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"/Users/Lisa/Desktop/QTM/assignment5"</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
@@ -348,9 +368,17 @@ dbl (13): inflation_rate, exports_gdp_share, gdp_growth_rate, gdp_per_capita...
 </div>
 
 
+
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-worldbank2022" class="csl-entry" role="listitem">
+Bank, World. 2022. <span>“World Development Indicators.”</span> <a href="https://databank.worldbank.org/source/world-development-indicators">https://databank.worldbank.org/source/world-development-indicators</a>.
+</div>
+<div id="ref-copilot" class="csl-entry" role="listitem">
+GitHub. 2023. <span>“GitHub Copilot.”</span> <a href="https://github.com/features/copilot?ef_id=_k_Cj0KCQjwgIXCBhDBARIsAELC9ZgmF9PJs_mbLrkX7iLuqYcvtOk5ynyu_Z-jnq2cz2NqCsA_xZMAfbcaApbtEALw_wcB_k_&amp;OCID=AIDcmmb150vbv1_SEM__k_Cj0KCQjwgIXCBhDBARIsAELC9ZgmF9PJs_mbLrkX7iLuqYcvtOk5ynyu_Z-jnq2cz2NqCsA_xZMAfbcaApbtEALw_wcB_k_&amp;gad_source=1&amp;gad_campaignid=19745876592&amp;gbraid=0AAAAADcJh_vkXvxxJUaiZSSKA272ozpCH&amp;gclid=Cj0KCQjwgIXCBhDBARIsAELC9ZgmF9PJs_mbLrkX7iLuqYcvtOk5ynyu_Z-jnq2cz2NqCsA_xZMAfbcaApbtEALw_wcB">https://github.com/features/copilot?ef_id=_k_Cj0KCQjwgIXCBhDBARIsAELC9ZgmF9PJs_mbLrkX7iLuqYcvtOk5ynyu_Z-jnq2cz2NqCsA_xZMAfbcaApbtEALw_wcB_k_&amp;OCID=AIDcmmb150vbv1_SEM__k_Cj0KCQjwgIXCBhDBARIsAELC9ZgmF9PJs_mbLrkX7iLuqYcvtOk5ynyu_Z-jnq2cz2NqCsA_xZMAfbcaApbtEALw_wcB_k_&amp;gad_source=1&amp;gad_campaignid=19745876592&amp;gbraid=0AAAAADcJh_vkXvxxJUaiZSSKA272ozpCH&amp;gclid=Cj0KCQjwgIXCBhDBARIsAELC9ZgmF9PJs_mbLrkX7iLuqYcvtOk5ynyu_Z-jnq2cz2NqCsA_xZMAfbcaApbtEALw_wcB</a>.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
